@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-from django.template import loader
 from .form import UserRegistrationForm
+from .models import profile
 
 #def admin_app(request):
 #    template = loader.get_template('firstpage.html')
@@ -10,16 +10,31 @@ from .form import UserRegistrationForm
 def admin_app(request):
    return render(request, 'firstpage.html')
 
+
+def registration_sucess(request):
+   return render(request, 'sucess.html')    
+
+def memberlist(request):
+   member_data=profile.objects.all()
+   context = {
+    'mymembers': member_data,
+   }
+   return render(request, 'member_list.html',context)  
+
+def memberdetails(request):
+   member_info=profile.objects.all()
+   context = {
+    'members': member_info,
+   }
+   return render(request, 'member_details.html',context)  
+
 def register_member(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-
-
-            user.save()
-            return redirect('sucess')  # Redirect to the login page after successful registration
+            form.save()
+            form.clear_form_data()
+            return redirect('sucess')  # Create a success view
     else:
-       # form = UserRegistrationForm()
-    #return render(request, 'register.html', {'form': form})
-     return redirect('failure')
+        form = UserRegistrationForm()
+    return render(request, 'register.html', {'form': form})
