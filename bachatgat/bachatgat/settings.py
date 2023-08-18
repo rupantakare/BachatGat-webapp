@@ -126,7 +126,7 @@ STATIC_URL = '/admin_app/templates/bootstrap_admin/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Additional locations of static files
-STATICFILES_DIRS = [BASE_DIR / 'admin_app/templates/bootstrap_admin']
+#STATICFILES_DIRS = [BASE_DIR / 'admin_app/templates/bootstrap_admin']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
